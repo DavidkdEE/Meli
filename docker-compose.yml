@@ -1,0 +1,53 @@
+version: '3'
+services:
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - static_volume:/home/app/microservice/static
+    depends_on:
+      - meli-api
+    restart: "on-failure"
+
+  meli-api:
+    build:
+      dockerfile: ./api_meli/Dockerfile
+      context: ./
+
+    command: sh -c "cd api_meli/ &&
+                    python manage.py makemigrations &&
+                    python manage.py migrate &&
+
+                    gunicorn meli.wsgi:application --bind 0.0.0.0:8000"               
+    volumes:
+      - .:/microservice:rw
+      - static_volume:/home/app/microservice/static
+      - logfile:/home/app/microservice/logs:rw
+    env_file:
+      - ./api_meli/.env
+    image: meli-api
+
+    expose:
+      - 8000
+      - 1234
+
+    restart: "on-failure"
+
+volumes:
+  static_volume:
+  logfile:
+
+
+
+
+
+
+
+
+
+
+
+
+

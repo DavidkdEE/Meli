@@ -1,0 +1,5 @@
+-r requirements.txt
+ipdb==0.13.9
+pygraphviz==1.9
+coverage==6.3.2
+Faker==13.14.0
