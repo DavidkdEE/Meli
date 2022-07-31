@@ -32,15 +32,12 @@ jobs:
         echo DJANGO_SETTINGS_MODULE="meli.settings.local" >> .env
         echo DJANGO_ALLOWED_HOSTS="localhost,meli.local" >> .env
         echo CREDENTIALS=${{ secrets.CREDENTIALS }} >> .env
-        cat .env
 
-        
-
-    - name: make migrations
-      run: |
-        cd api_meli
-        python manage.py makemigrations
-        python manage.py migrate
+    # - name: make migrations
+    #   run: |
+    #     cd api_meli
+    #     python manage.py makemigrations
+    #     python manage.py migrate
 
     - name: Run Tests
       run: |
