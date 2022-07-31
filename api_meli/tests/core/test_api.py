@@ -32,12 +32,16 @@ class ApiTest(TestCase):
             'name': 'title',
         }]
         return data
+    
+    def fake_get_creds(self):
+        return {}
 
     def fake_delete_file(self, file_id, google_creds) -> dict:
         return status.HTTP_204_NO_CONTENT
 
     @patch('api_google.google_drive.GoogleDriveService.create_file', fake_create_file)
     @patch('api_google.google_drive.GoogleDriveService.update_file', fake_update_file)
+    @patch('api_google.credentials.GoogleDrive.get_credentials', fake_get_creds)
     def test_create_file(self):
         """Creation doc test"""
         payload = {
@@ -71,6 +75,7 @@ class ApiTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     @patch('api_google.google_drive.GoogleDriveService.list_files', fake_list_files)
+    @patch('api_google.credentials.GoogleDrive.get_credentials', fake_get_creds)
     def test_get_files(self):
         """Creation get list test"""
         authorization = 'Bearer ' + self.token
@@ -85,6 +90,7 @@ class ApiTest(TestCase):
                 ListFilesResponse(**file)
 
     @patch('api_google.google_drive.GoogleDriveService.delete_file', fake_delete_file)
+    @patch('api_google.credentials.GoogleDrive.get_credentials', fake_get_creds)
     def test_delete_file(self):
         """Creation get list test"""
         authorization = 'Bearer ' + self.token

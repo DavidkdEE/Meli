@@ -18,7 +18,6 @@ field_enum = [
     'title',
     'description'
 ]
-creds = GoogleDrive().get_credentials()
 
 class SearchInDoc(APIView):
     """Busca una palabra en un documento"""

@@ -21,6 +21,8 @@ SCOPES = ['https://www.googleapis.com/auth/drive',
 class GoogleDrive:
 
     def __init__(self):
+        if settings.ENV == 'test':
+            return
         self.creds = None
         self._create_credentials()
 
