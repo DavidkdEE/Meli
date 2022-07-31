@@ -238,3 +238,5 @@ SIMPLE_JWT = {
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 LANGUAGE_CODE = 'es'
+
+CREDENTIALS = os.environ.get('CREDENTIALS', None)

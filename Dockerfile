@@ -15,7 +15,6 @@ WORKDIR $MICRO_SERVICE
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install psycopg2 dependencies
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk del build-deps \
@@ -30,13 +29,10 @@ RUN pip install --upgrade pip
 # copy project
 COPY . $MICRO_SERVICE
 
-
 RUN pip3 install -r requirements.txt
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade pip setuptools
-RUN pip3 install --upgrade pillow
 RUN pip3 install whitenoise
 RUN pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 RUN pip3 install tzdata
-
 CMD ["/bin/bash", "/home/app/microservice/entrypoint.sh"]

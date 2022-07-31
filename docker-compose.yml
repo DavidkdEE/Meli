@@ -19,7 +19,7 @@ services:
     command: sh -c "cd api_meli/ &&
                     python manage.py makemigrations &&
                     python manage.py migrate &&
-
+  
                     gunicorn meli.wsgi:application --bind 0.0.0.0:8000"               
     volumes:
       - .:/microservice:rw
@@ -31,7 +31,6 @@ services:
 
     expose:
       - 8000
-      - 1234
 
     restart: "on-failure"
 

@@ -8,10 +8,11 @@ from rest_framework.response import Response
 from googleapiclient.errors import HttpError
 from core.exceptions import ConectedFailed
 
-from core.utils import GoogleDrive
+from api_google.credentials import GoogleDrive
 
 from googleapiclient.discovery import build
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
+
 
 
 param_id_document = openapi.Parameter('id_document', openapi.IN_QUERY, description="id_document", type=openapi.TYPE_STRING)
@@ -57,11 +58,11 @@ class SearchInDoc(APIView):
             else:
                 return Response('Palabra NO se encuentra en el texto',status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except HttpError as err:
-            logger.error(f"Se produjo un error al buscar contenido del documento. {str(err)}")
+            # logger.error(f"Se produjo un error al buscar contenido del documento. {str(err)}")
             raise ConectedFailed(err)
 
 
-class ListDrive(APIView):
+class ListFilesView(APIView):
     """Lista los archivos almacenados en Google Drive"""
     
     def get(self, request, format=None):
@@ -78,7 +79,7 @@ class ListDrive(APIView):
                 print(u'{0} ({1})'.format(item['name'], item['id']))
             return Response(items, status=status.HTTP_200_OK)
         except HttpError as err:
-            logger.error(f"Se produjo un error al listar contenido del DRIVE. {str(err)}")
+            # logger.error(f"Se produjo un error al listar contenido del DRIVE. {str(err)}")
             return Response(err.content, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -122,7 +123,7 @@ class CreateFile(APIView):
             }
             return Response(data, status=status.HTTP_200_OK)
         except HttpError as err:
-            logger.error(f"Se produjo un error al crear un doc en el DRIVE. {str(err)}")
+            # logger.error(f"Se produjo un error al crear un doc en el DRIVE. {str(err)}")
             return Response(err.content, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
