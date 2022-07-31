@@ -6,7 +6,8 @@ import sys
 import dotenv
 
 def main():
-    dotenv.read_dotenv()
+    if os.path.exists(os.path.join(os.getcwd(), '.env')):
+        dotenv.read_dotenv()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'meli.settings')
     try:
