@@ -6,7 +6,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+
+  linting:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,8 +31,7 @@ jobs:
         cd api_meli
         flake8
 
-jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
