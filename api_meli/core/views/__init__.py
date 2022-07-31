@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from core.exceptions import ParamsNotFound
 from core.services.file_service import FileService
 
 
@@ -35,6 +36,8 @@ class ListFilesView(APIView):
     def post(self, request, format=None):
         title = request.data.get('title')
         description = request.data.get('description')
+        if not title or not description:
+            raise ParamsNotFound
         create_file = FileService().create_file(title, description)
         return Response(create_file, status=status.HTTP_200_OK)
 

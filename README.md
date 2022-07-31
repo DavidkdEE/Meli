@@ -9,7 +9,7 @@ Es necesario tener instalado python, pip, docker y docker-compose para seguir es
 
 Las herramientas descritas son fáciles de encontrar en la web, por lo que si no las tienes, las puedes instalar siguiendo los tutoriales de las paginas oficiales.
 
-Este codigo esta testeado para python 3.9, por lo cual se recomienda trabajar con estás versión.
+Este codigo esta testeado para python 3.8 Y 3.9, por lo cual se recomienda trabajar con estás versión.
 
 Para levantar la API utilizaremos el archivo docker-compose.yml.
 El cual posee las instrucciones para levantar la API en Django como, un servidor NGINX que servidira como proxy reverso.
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ```
 
 ## Configuraciones backend ##
-Si vas a usar bds distintas, configura el archivo:
+Si vas quieres levanatar la aplicacion desde consola, configura el archivo:
 app/settings/develop.py
 
 ```

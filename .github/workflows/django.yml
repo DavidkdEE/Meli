@@ -33,8 +33,14 @@ jobs:
         echo DJANGO_ALLOWED_HOSTS="localhost,meli.local" >> .env
         echo ENV="test" >> .env
         echo CREDENTIALS=${{ secrets.CREDENTIALS }} >> .env
+      
+    - name: Run Flake8
+      run: |
+        cd api_meli
+        flake8
 
     - name: Run Tests
       run: |
         cd api_meli
         python manage.py test --verbosity 2
+        
