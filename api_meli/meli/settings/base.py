@@ -237,3 +237,6 @@ LANGUAGE_CODE = 'es'
 
 CREDENTIALS = os.environ.get('CREDENTIALS', None)
 ENV = os.environ.get('ENV', None)
+
+USERNAME = os.environ.get('USERNAME', None)
+PASSWORD = os.environ.get('PASSWORD', None)
