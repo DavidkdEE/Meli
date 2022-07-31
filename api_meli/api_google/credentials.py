@@ -57,3 +57,5 @@ class GoogleDrive:
             return creds
         except HTTPError as err:
             raise ConectedFailed(err)
+
+google_creds: GoogleDrive = GoogleDrive()
