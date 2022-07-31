@@ -32,7 +32,3 @@ RUN pip3 install --upgrade pip setuptools
 RUN pip3 install whitenoise
 RUN pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 RUN pip3 install tzdata
-# Expose 8000
-EXPOSE 8080
-# Run APP
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--chdir", $MICRO_SERVICE, "api_meli.meli.wsgi"]  m

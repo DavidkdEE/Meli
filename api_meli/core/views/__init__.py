@@ -9,16 +9,6 @@ from core.services.file_service import FileService
 
 param_word = openapi.Parameter('word', openapi.IN_QUERY, description="word", type=openapi.TYPE_STRING)
 
-# param_title = openapi.Parameter('title', openapi.IN_BODY, description="title", type=openapi.TYPE_STRING)
-# param_description = openapi.Parameter('description', openapi.IN_BODY, description="description", type=openapi.TYPE_STRING)
-
-field_enum = [
-    'id_document',
-    'word',
-    'title',
-    'description'
-]
-
 class SearchInDoc(APIView):
     """Busca una palabra en un documento"""
     @swagger_auto_schema(
@@ -44,7 +34,6 @@ class ListFilesView(APIView):
             'description': openapi.Schema(type=openapi.TYPE_STRING, description='Description of document'),
         }))
     def post(self, request, format=None):
-
         title = request.data.get('title')
         description = request.data.get('description')
         create_file = FileService().create_file(title, description)

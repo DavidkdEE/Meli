@@ -34,12 +34,6 @@ jobs:
         echo ENV="test" >> .env
         echo CREDENTIALS=${{ secrets.CREDENTIALS }} >> .env
 
-    # - name: make migrations
-    #   run: |
-    #     cd api_meli
-    #     python manage.py makemigrations
-    #     python manage.py migrate
-
     - name: Run Tests
       run: |
         cd api_meli

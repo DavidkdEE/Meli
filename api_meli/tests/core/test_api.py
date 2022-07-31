@@ -6,7 +6,6 @@ from tests.shemas import CreateFileResponse
 from tests.shemas import ListFilesResponse
 from unittest.mock import patch
 
-
 from tests.utils import make_valid_user
 fake = Faker()
 
@@ -24,6 +23,10 @@ class ApiTest(TestCase):
             'titulo': 'title',
             'descripcion': 'description'
         }
+        return data
+    
+    def fake_get_content_in_file(self, id_document, google_creds) -> dict:
+        data = [{'paragraph': {'elements': [{'textRun': {'content': 'description'}}]}}]
         return data
     
     def fake_list_files(self, google_creds) -> dict:
@@ -100,3 +103,45 @@ class ApiTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    @patch('api_google.google_drive.GoogleDriveService.create_file', fake_create_file)
+    @patch('api_google.google_drive.GoogleDriveService.update_file', fake_update_file)
+    @patch('api_google.google_drive.GoogleDriveService.get_content_in_file', fake_get_content_in_file)
+    @patch('api_google.credentials.GoogleDrive.get_credentials', fake_get_creds)
+    def test_search_in_file(self):
+        """Search in doc test, response 200 OK if found, response 404 if not found"""
+        payload = {
+            "title": fake.name(),
+            "description": 'description',
+        }
+        authorization = 'Bearer ' + self.token
+        response = self.client.post(
+            reverse('files'),
+            data=payload,
+            HTTP_AUTHORIZATION=authorization,
+            content_type='application/json'
+        )
+        id_file = response.data.get('id')
+        data = {'word': payload.get('description')}
+        response = self.client.get(
+            reverse('search-in-doc', kwargs = {"id": id_file}),
+            data,
+            HTTP_AUTHORIZATION=authorization,
+            content_type='application/json'
+        )
+        # If the word is in the doc, the response is 200
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get('message'), 'La palabra SI se encuentra en el texto')
+
+        id_file = response.data.get('id')
+        data = {'word': 'Other text'}
+        response = self.client.get(
+            reverse('search-in-doc', kwargs = {"id": id_file}),
+            data,
+            HTTP_AUTHORIZATION=authorization,
+            content_type='application/json'
+        )
+        # If the word is NOT in the doc, the response is 404
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data.get('detail'), 'La palabra no se encuentra en el texto.')
+
