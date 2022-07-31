@@ -25,6 +25,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo DJANGO_SETTINGS_MODULE="meli.settings.local" >> .env
+        echo DJANGO_ALLOWED_HOSTS="localhost,meli.local" >> .env
+        echo CREDENTIALS=${{ secrets.CREDENTIALS }} >> .env
+
     - name: make migrations
       run: |
         cd api_meli
