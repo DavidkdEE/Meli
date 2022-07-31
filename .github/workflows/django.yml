@@ -32,6 +32,8 @@ jobs:
         echo DJANGO_SETTINGS_MODULE="meli.settings.local" >> .env
         echo DJANGO_ALLOWED_HOSTS="localhost,meli.local" >> .env
         echo CREDENTIALS=${{ secrets.CREDENTIALS }} >> .env
+        cat ${{ secrets.CREDENTIALS_EXAMPLE }}
+        
 
     - name: make migrations
       run: |
