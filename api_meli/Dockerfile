@@ -1,15 +1,12 @@
 FROM python:3.8.3-alpine
 
 ENV MICRO_SERVICE=/home/app/microservice
-#RUN addgroup -S $APP_USER && adduser -S $APP_USER -G $APP_USER
 # set work directory
 RUN mkdir -p $MICRO_SERVICE
 RUN mkdir -p $MICRO_SERVICE/static
 
 # where the code lives
 WORKDIR $MICRO_SERVICE
-
-
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -35,4 +32,7 @@ RUN pip3 install --upgrade pip setuptools
 RUN pip3 install whitenoise
 RUN pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 RUN pip3 install tzdata
-CMD ["/bin/bash", "/home/app/microservice/entrypoint.sh"]
+# Expose 8000
+EXPOSE 8080
+# Run APP
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--chdir", $MICRO_SERVICE, "api_meli.meli.wsgi"]  m
