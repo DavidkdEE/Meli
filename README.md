@@ -1,3 +1,4 @@
+[![build status](https://github.com/davidkdee/meli/workflows/Django-CI/badge.svg)](https://github.com/DavidkdEE/Meli/actions) 
 ## CHALLENGER MELI GOOGLE API
 
 Esta API permite listar el contenido de un DRIVE, crear documentos (titulo y contenido), buscar si una palabra se encuentra en un determinado documento y borrar contenido del DRIVE
