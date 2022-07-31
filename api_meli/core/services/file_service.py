@@ -28,8 +28,7 @@ class FileService():
     def get_content_file(self, file_id, word):
         doc_content = self.drive_service.get_content_in_file(file_id, self.google_creds)
         return doc_content
-        
-    
+
     def search_word(self, file_id, word):
         doc_content = self.get_content_file(file_id, word)
         text = []
@@ -45,10 +44,3 @@ class FileService():
         if not word.lower() in text:
             raise WordNotFound()
         return {'message': 'La palabra se encuentra en el texto'}
-
-        # if word.lower() in text:
-        #     return Response('Palabra se encuentra en el texto',status=status.HTTP_200_OK)
-        # else:
-        #     return Response('Palabra NO se encuentra en el texto',status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    
