@@ -43,4 +43,4 @@ class FileService():
                     text.append(__word.lower())
         if not word.lower() in text:
             raise WordNotFound()
-        return {'message': 'La palabra SI se encuentra en el texto'}
+        return {'message': 'The word YES is found in the text'}

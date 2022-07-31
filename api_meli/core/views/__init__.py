@@ -10,7 +10,7 @@ from core.services.file_service import FileService
 param_word = openapi.Parameter('word', openapi.IN_QUERY, description="word", type=openapi.TYPE_STRING)
 
 class SearchInDoc(APIView):
-    """Busca una palabra en un documento"""
+    """Search for a word in a document"""
     @swagger_auto_schema(
         manual_parameters=
             [param_word])
@@ -21,7 +21,7 @@ class SearchInDoc(APIView):
         return Response(search_word, status=status.HTTP_200_OK)
 
 class ListFilesView(APIView):
-    """Lista los archivos almacenados en Google Drive"""
+    """List the files stored in Google Drive"""
     
     def get(self, request, format=None):
         files = FileService().get_files()
@@ -40,7 +40,7 @@ class ListFilesView(APIView):
         return Response(create_file, status=status.HTTP_200_OK)
         
 class DeleteFile(APIView):
-    """Elimina un archivo de Google Drive a partir de su ID"""
+    """Delete a file from Google Drive based on its ID"""
 
     def delete(self, request, id, format=None):
         delete_file = FileService().delete_file(id)

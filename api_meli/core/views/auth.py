@@ -15,7 +15,6 @@ from rest_framework.decorators import (
     permission_classes,
 )
 
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 UserModel = get_user_model()
@@ -69,7 +68,6 @@ class LoginView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         django_login(self.request, serializer.user)
-        return Response(UserSerializer(request.user).data)
 
 @api_view(["POST"])
 #@authentication_classes([SessionAuthentication])
