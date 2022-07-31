@@ -9,8 +9,8 @@ from core.services.file_service import FileService
 
 param_word = openapi.Parameter('word', openapi.IN_QUERY, description="word", type=openapi.TYPE_STRING)
 
-param_title = openapi.Parameter('title', openapi.IN_QUERY, description="title", type=openapi.TYPE_STRING)
-param_description = openapi.Parameter('description', openapi.IN_QUERY, description="description", type=openapi.TYPE_STRING)
+# param_title = openapi.Parameter('title', openapi.IN_BODY, description="title", type=openapi.TYPE_STRING)
+# param_description = openapi.Parameter('description', openapi.IN_BODY, description="description", type=openapi.TYPE_STRING)
 
 field_enum = [
     'id_document',
@@ -38,27 +38,19 @@ class ListFilesView(APIView):
         files = FileService().get_files()
         return Response(files, status=status.HTTP_200_OK)
     
-    @swagger_auto_schema(
-        manual_parameters=
-        [param_title, param_description])
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'title': openapi.Schema(type=openapi.TYPE_STRING, description='Title of document'),
+            'description': openapi.Schema(type=openapi.TYPE_STRING, description='Description of document'),
+        }))
     def post(self, request, format=None):
-        title = request.query_params.get('title')
-        description = request.query_params.get('description')
+
+        title = request.data.get('title')
+        description = request.data.get('description')
         create_file = FileService().create_file(title, description)
         return Response(create_file, status=status.HTTP_200_OK)
         
-# class CreateFile(APIView):
-#     """Crea un archivo de Google Drive a partir de los parametros de titulo y descripción"""
-#     @swagger_auto_schema(
-#         manual_parameters=
-#             [param_title, param_description])
-
-#     def post(self, request, format=None):
-#         title = request.query_params.get('title')
-#         description = request.query_params.get('description')
-#         create_file = FileService().create_file(title, description)
-#         return Response(create_file, status=status.HTTP_200_OK)
-
 class DeleteFile(APIView):
     """Elimina un archivo de Google Drive a partir de su ID"""
 
