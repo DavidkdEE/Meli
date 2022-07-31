@@ -37,7 +37,6 @@ Puedes testear la API en la siguiente dirección: http://localhost/doc/
 
 Instalamos las librerías del backend (es recomendable poseer un gestor de ambientes para python):
 ```
-cd api_meli
 pip install -r requirements.txt
 ```
 
