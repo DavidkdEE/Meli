@@ -5,6 +5,7 @@ import sys
 
 import dotenv
 
+
 def main():
     if os.path.exists(os.path.join(os.getcwd(), '.env')):
         dotenv.read_dotenv()

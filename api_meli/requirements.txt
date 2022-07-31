@@ -22,3 +22,4 @@ google-auth-httplib2==0.0.3
 google-auth-oauthlib==0.4.0
 Faker==13.14.0
 mock==4.0.3
+flake8==5.0.0

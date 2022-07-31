@@ -2,11 +2,12 @@ from api_google.credentials import google_creds
 from api_google.google_drive import GoogleDriveService
 from core.exceptions import WordNotFound
 
+
 class FileService():
     def __init__(self):
         self.drive_service = GoogleDriveService()
         self.google_creds = google_creds.get_credentials()
-    
+
     def get_files(self):
         items = self.drive_service.list_files(self.google_creds)
         return items
@@ -20,11 +21,11 @@ class FileService():
             'descripcion': description
         }
         return data
-    
+
     def delete_file(self, file_id):
         delete_file = self.drive_service.delete_file(file_id, self.google_creds)
         return delete_file
-    
+
     def get_content_file(self, file_id, word):
         doc_content = self.drive_service.get_content_in_file(file_id, self.google_creds)
         return doc_content

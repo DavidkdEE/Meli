@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -58,7 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -170,7 +171,7 @@ REST_FRAMEWORK = {
 
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # this is default
+    'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
 )
 
@@ -223,10 +224,9 @@ LOGGING = {
 
 BASE_URL = os.environ.get("DJANGO_BASE_URL", None)
 
-ACCOUNT_ACTIVATION_DAYS=1
+ACCOUNT_ACTIVATION_DAYS = 1
 
-from datetime import timedelta
-lifetime=int(os.environ.get("DJANGO_ACCESS_TOKEN_LIFETIME", 5))
+lifetime = int(os.environ.get("DJANGO_ACCESS_TOKEN_LIFETIME", 5))
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=lifetime)

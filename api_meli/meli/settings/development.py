@@ -1,5 +1,4 @@
 from .base import *
-
 import os
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -16,6 +15,6 @@ DATABASES = {
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
         'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': os.environ.get('DATABASE_PORT', ''), # Set to empty string for default.
+        'PORT': os.environ.get('DATABASE_PORT', ''),
     }
 }

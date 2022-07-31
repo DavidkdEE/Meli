@@ -5,6 +5,7 @@ from faker import Faker
 from tests.utils import make_valid_user
 fake = Faker()
 
+
 class UserTest(TestCase):
     client = Client()
 

@@ -9,8 +9,10 @@ from unittest.mock import patch
 from tests.utils import make_valid_user
 fake = Faker()
 
+
 class ApiTest(TestCase):
     client = Client()
+
     def setUp(self):
         self.user, self.token = make_valid_user(is_active=True)
 
@@ -24,18 +26,18 @@ class ApiTest(TestCase):
             'descripcion': 'description'
         }
         return data
-    
+
     def fake_get_content_in_file(self, id_document, google_creds) -> dict:
         data = [{'paragraph': {'elements': [{'textRun': {'content': 'description'}}]}}]
         return data
-    
+
     def fake_list_files(self, google_creds) -> dict:
         data = [{
             'id': "id_file",
             'name': 'title',
         }]
         return data
-    
+
     def fake_get_creds(self):
         return {}
 
@@ -94,7 +96,7 @@ class ApiTest(TestCase):
         if response.data:
             for file in response.data:
                 ListFilesResponse(**file)
-    
+
     def test_get_files_unauthorizated(self):
         """Get list unauthorizated test"""
 
@@ -103,7 +105,7 @@ class ApiTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-  
+
     @patch('api_google.google_drive.GoogleDriveService.delete_file', fake_delete_file)
     @patch('api_google.credentials.GoogleDrive.get_credentials', fake_get_creds)
     def test_delete_file(self):
@@ -115,7 +117,7 @@ class ApiTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-    
+
     def test_delete_file_unauthorizated(self):
         """Delete file unauthorizated test"""
 
@@ -145,7 +147,7 @@ class ApiTest(TestCase):
         id_file = response.data.get('id')
         data = {'word': payload.get('description')}
         response = self.client.get(
-            reverse('search-in-doc', kwargs = {"id": id_file}),
+            reverse('search-in-doc', kwargs={"id": id_file}),
             data,
             HTTP_AUTHORIZATION=authorization,
             content_type='application/json'
@@ -156,16 +158,16 @@ class ApiTest(TestCase):
 
     def test_search_in_file_unauthorizated(self):
         """Search in doc unauthorizated test"""
-        
+
         id_file = 'id_file'
         data = {'word': 'description'}
         response = self.client.get(
-            reverse('search-in-doc', kwargs = {"id": id_file}),
+            reverse('search-in-doc', kwargs={"id": id_file}),
             data,
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-    
+
     @patch('api_google.google_drive.GoogleDriveService.create_file', fake_create_file)
     @patch('api_google.google_drive.GoogleDriveService.update_file', fake_update_file)
     @patch('api_google.google_drive.GoogleDriveService.get_content_in_file', fake_get_content_in_file)
@@ -186,7 +188,7 @@ class ApiTest(TestCase):
         id_file = response.data.get('id')
         data = {'word': 'Other text'}
         response = self.client.get(
-            reverse('search-in-doc', kwargs = {"id": id_file}),
+            reverse('search-in-doc', kwargs={"id": id_file}),
             data,
             HTTP_AUTHORIZATION=authorization,
             content_type='application/json'

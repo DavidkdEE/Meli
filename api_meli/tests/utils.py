@@ -7,6 +7,7 @@ from core.serializers import User
 fake = Faker()
 client = Client()
 
+
 def make_valid_user(
     email: str = fake.email(),
     username: str = fake.email(),
@@ -22,9 +23,9 @@ def make_valid_user(
     user.is_active = is_active
     user.is_superuser = is_superuser
     user.save()
-    
     token = make_get_token(username, password)
     return user, token
+
 
 def make_get_token(
     username: str,

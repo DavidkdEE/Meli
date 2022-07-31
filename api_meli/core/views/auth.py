@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth import (
-    REDIRECT_FIELD_NAME, get_user_model, authenticate,
+    get_user_model, authenticate,
     login as django_login, logout as django_logout
 )
 
@@ -19,15 +19,15 @@ from rest_framework.permissions import IsAuthenticated
 
 UserModel = get_user_model()
 
+
 class PasswordField(serializers.CharField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('style', {})
 
         kwargs['style']['input_type'] = 'password'
         kwargs['write_only'] = True
-
         super().__init__(*args, **kwargs)
-       
+
 
 class CredsSerializer(serializers.Serializer):
     username_field = UserModel.USERNAME_FIELD
@@ -69,8 +69,9 @@ class LoginView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         django_login(self.request, serializer.user)
 
+
 @api_view(["POST"])
-#@authentication_classes([SessionAuthentication])
+# @authentication_classes([SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def logout(request: Request) -> Response:
     django_logout(request)

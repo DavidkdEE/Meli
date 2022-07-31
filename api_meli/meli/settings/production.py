@@ -1,8 +1,5 @@
 from .base import *
-
 import os
-
-
 
 DATABASES = {
     'default': {
@@ -14,5 +11,3 @@ DATABASES = {
         'PORT': os.environ.get('DJANGO_POSTGRES_PORT'),
     }
 }
-
-SENDFILE_BACKEND = "django_sendfile.backends.nginx"

@@ -11,12 +11,13 @@ from core.exceptions import ConectedFailed
 import os
 from django.conf import settings
 
-
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/drive',
-        'https://www.googleapis.com/auth/drive.metadata.readonly',
-        'https://www.googleapis.com/auth/documents.readonly'
-        ]
+SCOPES = [
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/drive.metadata.readonly',
+    'https://www.googleapis.com/auth/documents.readonly'
+    ]
+
 
 class GoogleDrive:
 
@@ -27,7 +28,7 @@ class GoogleDrive:
         self._create_credentials()
 
         """Shows basic usage of the Drive v3 API."""
-    
+
     def _create_credentials(self):
         if os.path.exists('credentials.json'):
             os.remove('credentials.json')
@@ -37,7 +38,7 @@ class GoogleDrive:
 
         with open('credentials.json', 'w') as creds:
             creds.write(settings.CREDENTIALS)
-            
+
     def get_credentials(self):
         try:
             creds = None
@@ -58,5 +59,6 @@ class GoogleDrive:
             return creds
         except HTTPError as err:
             raise ConectedFailed(err)
+
 
 google_creds: GoogleDrive = GoogleDrive()
