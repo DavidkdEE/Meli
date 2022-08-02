@@ -43,13 +43,13 @@ pip install -r requirements.txt
 ## Configuraciones backend ##
 Si quieres levantar la aplicación desde consola, copia el archivo .env adentro de la carpeta "api_meli"
 ```
-python backend/manage.py makemigrations
-python backend/manage.py migrate
-python backend/manage.py add_user (esto creara un usuario a partir de las variables configuradas en tu .env)
+python api_meli/manage.py makemigrations
+python api_meli/manage.py migrate
+python api_meli/manage.py add_user (esto creara un usuario a partir de las variables configuradas en tu .env)
 ```
 ## Para testear el backend ##
 ```
-cd backend
+cd api_meli
 python manage.py test
 ```
 
