@@ -49,6 +49,8 @@ python api_meli/manage.py migrate
 python api_meli/manage.py add_user (esto creara un usuario a partir de las variables configuradas en tu .env)
 ```
 ## Para testear el backend ##
+* La variable secreta ubicada en .env debe estar seteada con el valor test
+ENV=test
 ```
 cd api_meli
 python manage.py test
