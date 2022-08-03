@@ -25,6 +25,7 @@ Este código esta testeado para python 3.8 Y 3.9, por lo cual se recomienda trab
 
 ## Levantar la API utilizando docker-compose ##
 Para levantar la API utilizaremos el archivo docker-compose.yml.
+* Es necesario el archivo secreto token.json copiado en el directorio "api_meli"
 ejecutar en la raíz del repositorio el siguiente comando
 
 ```
